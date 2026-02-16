@@ -8,6 +8,8 @@ Pixiv API / 图片 / OAuth 反向代理服务，支持一键部署到 Cloudflare
 
 [![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/vmoranv/pixiv-proxy)
 
+> 点击按钮后，Cloudflare 会自动从仓库读取代码并部署，无需配置。
+
 部署完成后：
 - Worker 域名：`https://<your-worker>.<your-subdomain>.workers.dev`
 - API 请求：`https://<your-worker>.workers.dev/v1/illust/12345`
