@@ -1,7 +1,7 @@
-/** Vercel Serverless Function - Pixiv API 反代 */
+/** Vercel Edge Function - Pixiv API 反代 */
 const ENABLE_API_PROXY = true;
 const ENABLE_IMAGE_PROXY = true;
-const ENABLE_OAUTH_PROXY = false; // OAuth 通过直连
+const ENABLE_OAUTH_PROXY = false;
 
 const PIXIV_API_HOST = 'app-api.pixiv.net';
 const PIXIV_OAUTH_HOST = 'oauth.secure.pixiv.net';
