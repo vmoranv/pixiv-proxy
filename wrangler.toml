@@ -1,6 +1,6 @@
 name = "pixiv-proxy"
 main = "cloudflare-worker-pixiv-proxy.js"
-compatibility_date = "2026-02-26"
+compatibility_date = "2024-01-01"
 
 [observability]
 enabled = true
