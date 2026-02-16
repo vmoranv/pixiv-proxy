@@ -1,5 +1,7 @@
 {
-  "name": "pixiv-proxy",
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api" }
+  ],
   "headers": [
     {
       "source": "/api/(.*)",
