@@ -10,10 +10,18 @@ Pixiv API / 图片 / OAuth 反向代理服务，支持一键部署到 Cloudflare
 
 > 点击按钮后，Cloudflare 会自动从仓库读取代码并部署，无需配置。
 
+> ⚠️ **重要提示：必须绑定自定义域名！**
+>
+> Pixiv 会拦截所有 `*.workers.dev` 域名的请求，返回 challenge 页面。
+> 部署后请务必绑定自定义域名，否则无法使用。
+>
+> 绑定方法：Workers & Pages → 你的 Worker → Settings → Domains & Routes → Add Custom Domain
+
 部署完成后：
-- Worker 域名：`https://<your-worker>.<your-subdomain>.workers.dev`
-- API 请求：`https://<your-worker>.workers.dev/v1/illust/12345`
-- 图片代理：`https://<your-worker>.workers.dev/image/img-original/img/...`
+- Worker 默认域名（不可用）：`https://<your-worker>.<your-subdomain>.workers.dev`
+- **自定义域名（必须）**：`https://pixiv.yourdomain.com`
+- API 请求：`https://pixiv.yourdomain.com/v1/illust/12345`
+- 图片代理：`https://pixiv.yourdomain.com/image/img-original/img/...`
 
 ### Vercel
 
@@ -83,8 +91,13 @@ POST /auth/token
 // 是否启用各服务
 const ENABLE_API_PROXY = true;    // API 反代
 const ENABLE_IMAGE_PROXY = true;  // 图片反代
-const ENABLE_OAUTH_PROXY = true;  // OAuth 反代
+const ENABLE_OAUTH_PROXY = false; // OAuth 反代（默认关闭，OAuth 需直连）
 ```
+
+> ⚠️ **OAuth 代理说明**：
+> - OAuth 认证（登录获取 token）需要直接连接 Pixiv，不建议通过代理
+> - Cloudflare Workers 的 OAuth 请求会触发 Pixiv 的 bot 检测
+> - 建议使用直连或其他方式获取 `refresh_token`，然后通过代理调用 API
 
 ## 手动部署
 
