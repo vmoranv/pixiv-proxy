@@ -17,8 +17,8 @@
 const ENABLE_API_PROXY = true;
 // 是否启用图片反代
 const ENABLE_IMAGE_PROXY = true;
-// 是否启用 OAuth 反代
-const ENABLE_OAUTH_PROXY = true;
+// OAuth 需要直连，不通过 Worker 代理（会被 Cloudflare 拦截）
+const ENABLE_OAUTH_PROXY = false;
 
 // Pixiv 服务主机
 const PIXIV_API_HOST = 'app-api.pixiv.net';
@@ -66,6 +66,10 @@ export default {
     const headers = new Headers(request.headers);
     headers.set('Host', targetHost);
     headers.set('Referer', 'https://app-api.pixiv.net/');
+    headers.set('User-Agent', 'PixivIOSApp/7.13.3 (iOS 14.6; iPhone13,2)');
+    headers.set('App-OS', 'ios');
+    headers.set('App-OS-Version', '14.6');
+    headers.set('App-Version', '7.13.3');
 
     // 创建新请求
     const newRequest = new Request(targetUrl, {

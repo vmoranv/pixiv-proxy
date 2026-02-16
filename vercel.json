@@ -1,7 +1,5 @@
 {
   "name": "pixiv-proxy",
-  "version": "1.0.0",
-  "description": "Pixiv API 反代服务",
   "headers": [
     {
       "source": "/api/(.*)",

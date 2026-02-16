@@ -1,21 +1,15 @@
-/**
- * Vercel Serverless Function - Pixiv API 反代
- */
-
+/** Vercel Serverless Function - Pixiv API 反代 */
 const ENABLE_API_PROXY = true;
 const ENABLE_IMAGE_PROXY = true;
-const ENABLE_OAUTH_PROXY = true;
+const ENABLE_OAUTH_PROXY = false; // OAuth 通过直连
 
 const PIXIV_API_HOST = 'app-api.pixiv.net';
 const PIXIV_OAUTH_HOST = 'oauth.secure.pixiv.net';
 const PIXIV_IMAGE_HOST = 'i.pximg.net';
 
-export const config = {
-  runtime: 'edge',
-};
+export const config = { runtime: 'edge' };
 
 export default async function handler(req) {
-  // CORS 预检
   if (req.method === 'OPTIONS') {
     return new Response(null, {
       status: 204,
@@ -54,6 +48,10 @@ export default async function handler(req) {
   const headers = new Headers(req.headers);
   headers.set('Host', targetHost);
   headers.set('Referer', 'https://app-api.pixiv.net/');
+  headers.set('User-Agent', 'PixivIOSApp/7.13.3 (iOS 14.6; iPhone13,2)');
+  headers.set('App-OS', 'ios');
+  headers.set('App-OS-Version', '14.6');
+  headers.set('App-Version', '7.13.3');
 
   const newRequest = new Request(targetUrl, {
     method: req.method,
